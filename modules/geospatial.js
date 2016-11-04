@@ -44,7 +44,7 @@ function getClosestServers(latitude, longitude, numServers) {
     // sort by distance
     serversWithDistance.sort(sortServerDistance);
 
-    return serversWithDistance.slice(0, numServers - 1)
+    return serversWithDistance.slice(0, numServers)
 }
 
 
