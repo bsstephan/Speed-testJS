@@ -29,6 +29,7 @@ var statisticalCalculator = require('./modules/statisticalCalculator');
 //module provides download test sizes based off of probe data
 var downloadData = require('./modules/downloadData');
 var dynamo = require('./modules/dynamo');
+var geospatial = require('./modules/geospatial')
 
 //variables
 var webPort = +process.env.WEB_PORT || 8080;
@@ -195,6 +196,25 @@ app.get('/testServer', function (req, res) {
     }
     catch (err) {
         res.status(422).end('You must specify location.');
+    }
+});
+
+/**
+ * closestServers endpoint
+ */
+app.get('/closestServers', function (req, res) {
+    try {
+
+        //validate query parameters
+        if (!(req.query.latitude).match(/^-?\d+\.\d+$/) ||
+            !(req.query.longitude).match(/^-?\d+\.\d+$/)) {
+            throw('error');
+        }
+
+        res.json(geospatial.getClosestServers(req.query.latitude, req.query.longitude, 10));
+    }
+    catch (err) {
+        res.status(422).end('You must specify valid longitude and latitude values.');
     }
 });
 
