@@ -7,15 +7,15 @@ var servers = [
         'IPv4Address': '69.241.70.138',
         'IPv6Address': '',
         'Fqdn': 'stc-plfi-01.sys.comcast.net:8080',
-        'Latitude': '-74.591697',
-        'Longitude': '40.333439'
+        'Latitude': '40.333439',
+        'Longitude': '-74.591697'
     },
     {
         'IPv4Address': '69.241.74.66',
         'IPv6Address': '',
         'Fqdn': 'qoecnf-sncl-02.sys.comcast.net:8080',
-        'Latitude': '-118.257128',
-        'Longitude': '34.048238'
+        'Latitude': '34.048238',
+        'Longitude': '-118.257128'
     }
 ];
 
