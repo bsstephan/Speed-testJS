@@ -26,6 +26,7 @@ var domain = require('./modules/domain');
 var validateIP = require('validate-ip-node');
 var os = require('os');
 var statisticalCalculator = require('./modules/statisticalCalculator');
+var serverPing = require('./modules/serverPing');
 //module provides download test sizes based off of probe data
 var downloadData = require('./modules/downloadData');
 var dynamo = require('./modules/dynamo');
@@ -168,6 +169,31 @@ app.get('/downloadProbe', function (req, res) {
      res.header('Pragma', 'no-cache');
      var downloadTestSizes = downloadData.GetDownloadSize(req.query.bufferSize, req.query.time, req.query.lowLatency);
      res.json(downloadTestSizes);
+});
+
+/**
+ * serverPing endpoint - server-side ICMP netping
+ */
+app.get('/serverPing', function(req, res) {
+    var ip = ''
+    var results = {}
+    try {
+        // TODO: fix this so the client can't usually specify the ip otherwise this is a great way to initiate a ddos against someone
+        var ip = req.query.ip;
+        var protocol = req.query.protocol;
+        var results = new serverPing.pingIp(req, res, ip, protocol);
+        // res.send(results);
+    }
+    catch (error) {
+        console.log("appget serverPing error");
+        console.log(error);
+        res.status(400).json({'errorMessage': error,
+            'fixme': 1,
+            'results': results,
+            'ip': ip,
+            'protocol': protocol
+        });
+    }
 });
 
 /**
