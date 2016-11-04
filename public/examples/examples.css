@@ -30,6 +30,13 @@ label.block {
     max-width: 50%;
     
 }
+
+.bigevents{
+    overflow: scroll;
+    max-width: 50%;
+
+}
+
 .results{
     word-break: break-all;
 }

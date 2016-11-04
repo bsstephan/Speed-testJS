@@ -26,9 +26,11 @@ var domain = require('./modules/domain');
 var validateIP = require('validate-ip-node');
 var os = require('os');
 var statisticalCalculator = require('./modules/statisticalCalculator');
+var serverPing = require('./modules/serverPing');
 //module provides download test sizes based off of probe data
 var downloadData = require('./modules/downloadData');
 var dynamo = require('./modules/dynamo');
+var serverData = require('./modules/serverData');
 
 //variables
 var webPort = +process.env.WEB_PORT || 8080;
@@ -76,6 +78,20 @@ app.get('/download', function (req, res) {
      responseBuffer.fill(0x1020304);
      bufferStream.write(responseBuffer);
      bufferStream.end();
+});
+
+/**
+ * ServerList endpoint
+ * returns all known servers, so that the client can test against a bunch of them
+ * data is split by CRAN
+ */
+app.get('/serverlist', function (req, res) {
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.header('Expires', '-1');
+    res.header('Pragma', 'no-cache');
+    // var downloadTestSizes = downloadData.GetDownloadSize(req.query.bufferSize, req.query.time, req.query.lowLatency);
+    // res.json(downloadTestSizes);
+    res.json(serverData.serverNodeData)
 });
 
 /**
@@ -153,6 +169,43 @@ app.get('/downloadProbe', function (req, res) {
      res.header('Pragma', 'no-cache');
      var downloadTestSizes = downloadData.GetDownloadSize(req.query.bufferSize, req.query.time, req.query.lowLatency);
      res.json(downloadTestSizes);
+});
+
+/**
+ * serverPing endpoint - server-side ICMP netping
+ */
+app.get('/serverPing', function(req, res) {
+    var ip = req.ip;
+    var results = {};
+    var protocol = '4';
+    try {
+        // TODO: fix this so the client can't usually specify the ip otherwise this is a great way to initiate a ddos against someone
+        ip = req.query.ip;
+        protocol = req.query.protocol;
+
+        if (ip == null) {
+            console.log("req ip");
+            console.log(req.ip);
+            ip = req.ip;
+            // strip quirky mix of ipv6 and ipv4
+            if (ip.substr(0, 7) == "::ffff:") {
+                ip = ip.substr(7)
+            }
+        }
+        results = new serverPing.pingIp(req, res, ip, protocol);
+        // res.send(results);
+
+    }
+    catch (error) {
+        console.log("appget serverPing error");
+        console.log(error);
+        res.status(400).json({'errorMessage': error,
+            'fixme': 1,
+            'results': results,
+            'ip': ip,
+            'protocol': protocol
+        });
+    }
 });
 
 /**
