@@ -80,11 +80,11 @@ app.get('/download', function (req, res) {
 });
 
 /**
- * ServerMesh endpoint
+ * ServerList endpoint
  * returns all known servers, so that the client can test against a bunch of them
  * data is split by CRAN
  */
-app.get('/mesh', function (req, res) {
+app.get('/serverlist', function (req, res) {
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
     res.header('Expires', '-1');
     res.header('Pragma', 'no-cache');
