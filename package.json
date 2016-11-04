@@ -17,7 +17,7 @@
     "requirejs": "^2.3.2",
     "validate-ip-node": "^1.0.6",
     "ws": "^1.1.1",
-    "net-ping": "^0.2.1"
+    "ping": "^0.2.1"
   },
   "devDependencies": {
     "grunt-contrib-copy": "^1.0.0",
