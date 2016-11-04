@@ -175,14 +175,26 @@ app.get('/downloadProbe', function (req, res) {
  * serverPing endpoint - server-side ICMP netping
  */
 app.get('/serverPing', function(req, res) {
-    var ip = ''
-    var results = {}
+    var ip = req.ip;
+    var results = {};
+    var protocol = '4';
     try {
         // TODO: fix this so the client can't usually specify the ip otherwise this is a great way to initiate a ddos against someone
-        var ip = req.query.ip;
-        var protocol = req.query.protocol;
-        var results = new serverPing.pingIp(req, res, ip, protocol);
+        ip = req.query.ip;
+        protocol = req.query.protocol;
+
+        if (ip == null) {
+            console.log("req ip");
+            console.log(req.ip);
+            ip = req.ip;
+            // strip quirky mix of ipv6 and ipv4
+            if (ip.substr(0, 7) == "::ffff:") {
+                ip = ip.substr(7)
+            }
+        }
+        results = new serverPing.pingIp(req, res, ip, protocol);
         // res.send(results);
+
     }
     catch (error) {
         console.log("appget serverPing error");
