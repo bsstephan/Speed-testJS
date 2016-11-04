@@ -6,7 +6,6 @@
  * Created by pc on 11/3/16.
  */
 
-var netping = require ("net-ping");
 var ping = require ("ping");
 
 function pingIp(nodereq, noderes, ip, protocol) {
