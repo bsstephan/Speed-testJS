@@ -54,14 +54,6 @@
     function auditTrailLogger(actionName, subActionName, results) {
         //store call in event audit trail
         auditTrail.push({ event: [actionName, ' - ', subActionName].join(''), results: results });
-        // //update field value
-        // console.log(testName);
-        // console.log(results);
-        // if (testName === 'onComplete') {
-        //     //display to end user
-        //     document.querySelector('#test').value = "hi";
-        // }
-        //update the audit trail on screen
         displayAuditTrail();
     };
 
@@ -108,43 +100,6 @@
             eventsEl.innerHTML = arr.join('');
         }
     }
-
-    // //basic click event binding
-    // function clickEventHandler(e, version) {
-    //     var checked = {};
-    //     var testVersionChecked;
-    //     var testProtocolChecked;
-    //     //reset audit trail
-    //     //reset audit trail list
-    //     eventsEl.innerHTML = 'No Event Trail. <p>Click "Run Test" to begin</p>';
-    //     for (var i = 0; i < testVersions.length; i++) {
-    //         checked[testVersions[i].value] = testVersions[i].checked;
-    //         if (testVersions[i].checked && !testVersionChecked) {
-    //             testVersionChecked = true;
-    //         }
-    //     }
-    //
-    //     for (var i = 0, el; i < testProtocols.length; i++) {
-    //         checked[testProtocols[i].value] = testProtocols[i].checked;
-    //         if (testProtocols[i].checked && !testProtocolChecked) {
-    //             testProtocolChecked = true;
-    //         }
-    //     }
-    //
-    //     // document.querySelector('input.http.IPv4').style.display = (checked['http'] && checked['IPv4']) ? 'block' : 'none';
-    //     // document.querySelector('input.http.IPv4').value = '';
-    //     // document.querySelector('label.http.IPv4').style.display = (checked['http'] && checked['IPv4']) ? 'block' : 'none';
-    //     // document.querySelector('input.http.IPv6').style.display = (checked['http'] && checked['IPv6']) ? 'block' : 'none';
-    //     // document.querySelector('input.http.IPv6').value = '';
-    //     // document.querySelector('label.http.IPv6').style.display = (checked['http'] && checked['IPv6']) ? 'block' : 'none';
-    //     // document.querySelector('input.webSocket.IPv4').style.display = (checked['webSocket'] && checked['IPv4']) ? 'block' : 'none';
-    //     // document.querySelector('input.webSocket.IPv4').value = '';
-    //     // document.querySelector('label.webSocket.IPv4').style.display = (checked['webSocket'] && checked['IPv4']) ? 'block' : 'none';
-    //     // document.querySelector('input.webSocket.IPv6').style.display = (checked['webSocket'] && checked['IPv6']) ? 'block' : 'none';
-    //     // document.querySelector('input.webSocket.IPv6').value = '';
-    //     // document.querySelector('label.webSocket.IPv6').style.display = (checked['webSocket'] && checked['IPv6']) ? 'block' : 'none';
-    //     // testButton.disabled = !(testVersionChecked && testProtocolChecked);
-    // }
 
     var callback = function (func) {
         return function (event) {
