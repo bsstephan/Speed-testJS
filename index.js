@@ -30,6 +30,7 @@ var serverPing = require('./modules/serverPing');
 //module provides download test sizes based off of probe data
 var downloadData = require('./modules/downloadData');
 var dynamo = require('./modules/dynamo');
+var serverData = require('./modules/serverData');
 
 //variables
 var webPort = +process.env.WEB_PORT || 8080;
@@ -77,6 +78,20 @@ app.get('/download', function (req, res) {
      responseBuffer.fill(0x1020304);
      bufferStream.write(responseBuffer);
      bufferStream.end();
+});
+
+/**
+ * ServerList endpoint
+ * returns all known servers, so that the client can test against a bunch of them
+ * data is split by CRAN
+ */
+app.get('/serverlist', function (req, res) {
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.header('Expires', '-1');
+    res.header('Pragma', 'no-cache');
+    // var downloadTestSizes = downloadData.GetDownloadSize(req.query.bufferSize, req.query.time, req.query.lowLatency);
+    // res.json(downloadTestSizes);
+    res.json(serverData.serverNodeData)
 });
 
 /**
