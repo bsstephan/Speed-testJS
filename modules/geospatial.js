@@ -1,18 +1,19 @@
 
 var geolib = require('geolib');
 
+// This should be configurable
 var servers = [
     {
-        'IPv4Address': '1.2.3.4',
+        'IPv4Address': '69.241.70.138',
         'IPv6Address': '',
-        'Fqdn': 'plainsboro-nj.example.com',
+        'Fqdn': 'stc-plfi-01.sys.comcast.net:8080',
         'Latitude': '-74.591697',
         'Longitude': '40.333439'
     },
     {
-        'IPv4Address': '5.6.7.8',
+        'IPv4Address': '69.241.74.66',
         'IPv6Address': '',
-        'Fqdn': 'losangeles-ca.example.com',
+        'Fqdn': 'qoecnf-sncl-02.sys.comcast.net:8080',
         'Latitude': '-118.257128',
         'Longitude': '34.048238'
     }
