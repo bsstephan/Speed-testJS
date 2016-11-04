@@ -213,7 +213,8 @@
             var sortedBestCranTimes = getSortedKeys(bestCranTimes);
             auditTrailLogger('initTest', [candidateCran[0], 'CRANSCAN done (sorted)'].join(' '), sortedBestCranTimes);
 
-            auditTrailLogger('initTest', 'BEST CRAN', ['<b>', sortedBestCranTimes[0][0], '</b>'].join(''));
+            auditTrailLogger('initTest', ['BEST CRAN (', candidateCran[0], ') BEST SERVER'].join(''),
+                ['<b>', sortedBestCranTimes[0][0], '</b>'].join(''));
         });
 
     }
